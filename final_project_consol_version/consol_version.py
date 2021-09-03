@@ -20,22 +20,23 @@ def operation(x, y, operator):
 
     while True:
         rounds += 1
+        precision = round(points / rounds * 100, 2)
         first = randint(int(a), int(b))
         second = randint(int(c), int(d))
         result = evaluate_operation(first, second, operator)
 
         answer_special = input(f"What is {first} {result[1]} {second}: ")
         if answer_special == "stop":
-            print(f"This is your {rounds} round, your score is {points}")
+            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
             print("")
             break
         elif result[0] == int(answer_special):
             points += 1
-            print("Good")
-            print(f"This is your {rounds} round, your score is {points}")
+            print("Good.")
+            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
         else:
-            print(f"Bad, correct answer is {result[0]}")
-            print(f"This is your {rounds} round, your score is {points}")
+            print(f"Bad, correct answer is {result[0]}.")
+            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
             print("")
             break
 
@@ -73,14 +74,11 @@ def main():
         print("NEW GAME")
         print("Enter one of the +, -, *, /, % signs, to choose what operation you want to train.")
         operator = input("What you want to do?: ")
-        # operator = "+"
         print("Now enter the range of numbers you want to focus on,"
-              " it must be in format <x,y> where x is the minimum and y is the maxsimum.")
+              " it must be in format <x,y> where x is the minimum and y is the maximum.")
 
         range1 = input("Enter the range of first number: ")
-        # range1 = ""
         range2 = input("Enter the range of second number: ")
-        # range2 = ""
         range1 = validate_range(range1, '1,10')
         range2 = validate_range(range2, '1,10')
 
