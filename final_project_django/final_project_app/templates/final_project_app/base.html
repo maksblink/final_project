@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Title{% endblock %}</title>
 </head>
 <body>
-
+<h1>BrainMath</h1>
+{% block content %}
+    <h2>Home</h2>
+{% endblock %}
+<br>Data: -----------------> {{ now }}<br>
+Wersja: ---------------> {{ version }}
 </body>
 </html>

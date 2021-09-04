@@ -7,6 +7,11 @@ from .forms import RegisterForm
 User = get_user_model()
 
 
+class HomeView(View):
+    def get(self, request):
+        return render(request, "final_project_app/base.html")
+
+
 class RegisterView(View):
     def get(self, request):
         form = RegisterForm()

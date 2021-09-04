@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from final_project_app.views import RegisterView
+from final_project_app.views import HomeView, RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', HomeView.as_view(), name="home"),
     path('register/', RegisterView.as_view(), name="register"),
 ]
