@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Title{% endblock %}</title>
+    <title>{% block title %}BrainMath{% endblock %} | BrainMath</title>
 </head>
 <body>
 <h1>BrainMath</h1>
+<menu>
+    <li><a href="{% url 'register' %}">Sign Up</a></li>
+    <li><a href="{% url 'log_in' %}">Log In</a></li>
+    <li><a href="{% url 'log_out' %}">Log Out</a></li>
+</menu>
 {% block content %}
     <h2>Home</h2>
 {% endblock %}

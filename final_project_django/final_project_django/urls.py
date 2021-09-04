@@ -20,6 +20,7 @@ from final_project_app.views import HomeView, RegisterView, LoginView, LogoutVie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^$', HomeView.as_view(), name="home"),
     re_path(r'^home/$', HomeView.as_view(), name="home"),
     re_path(r'^register/$', RegisterView.as_view(), name="register"),
     re_path(r'^login/$', LoginView.as_view(), name="log_in"),
