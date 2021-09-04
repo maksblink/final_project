@@ -4,6 +4,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        {# you need to make all fields required, do the hybrid #}
+        {# you need to make 2 inputs for password and you have to check if both of these is the same (maybe use js) #}
         <input type="submit" value="Sign Up">
     </form>
 {% endblock %}

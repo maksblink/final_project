@@ -1,8 +1,9 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 User = get_user_model()
 
@@ -17,10 +18,41 @@ class RegisterView(View):
         form = RegisterForm()
         return render(request, "final_project_app/register.html", {'form': form})
 
-    def get(self, request):
+    def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            new_user = User.objects.create(name=form.changed_data['name'], password=form.cleaned_data['password'])
+            new_user = User.objects.create_user(password=form.cleaned_data['password'],
+                                                username=form.cleaned_data['username'],
+                                                first_name=form.cleaned_data['first_name'],
+                                                last_name=form.cleaned_data['last_name'],
+                                                email=form.cleaned_data['email'])
+            normal_user_group = Group.objects.get(name='normal_users')
+            normal_user_group.user_set.add(new_user)
             return redirect('/home')
         else:
             return render(request, "final_project_app/register.html", {'form': form})
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, "final_project_app/login.html", {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['login'], password=form.cleaned_data['password'])
+            if user:
+                login(request, user)
+                return redirect('/home')
+            else:
+                return render(request, "final_project_app/login.html",
+                              {'form': form, 'error': "Incorrect login or password."})
+        else:
+            return render(request, "final_project_app/login.html", {'form': form})
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/home')
