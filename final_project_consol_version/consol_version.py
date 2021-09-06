@@ -20,23 +20,31 @@ def operation(x, y, operator):
 
     while True:
         rounds += 1
-        precision = round(points / rounds * 100, 2)
         first = randint(int(a), int(b))
         second = randint(int(c), int(d))
         result = evaluate_operation(first, second, operator)
 
         answer_special = input(f"What is {first} {result[1]} {second}: ")
-        if answer_special == "stop":
-            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
+        if answer_special == "":
+            continue
+        elif answer_special == "stop":
+            rounds -= 1
+            print(
+                f"This is your {rounds} round, your score is {points}, you were correct {precision(rounds, points)}"
+                "% of the time.")
             print("")
             break
         elif result[0] == int(answer_special):
             points += 1
             print("Good.")
-            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
+            print(
+                f"This is your {rounds} round, your score is {points}, you were correct {precision(rounds, points)}"
+                "% of the time.")
         else:
             print(f"Bad, correct answer is {result[0]}.")
-            print(f"This is your {rounds} round, your score is {points}, you were correct {precision}% of the time.")
+            print(
+                f"This is your {rounds} round, your score is {points}, you were correct {precision(rounds, points)}"
+                "% of the time.")
             print("")
             break
 
@@ -45,6 +53,13 @@ def validate_range(x, default_value):
     if x == "" or x is None:
         x = default_value
     return x
+
+
+def precision(p, r):
+    try:
+        return round(p / r * 100, 2)
+    except ZeroDivisionError:
+        return 0.0
 
 
 def validate_operation(answer):

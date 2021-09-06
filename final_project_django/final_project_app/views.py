@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -21,11 +22,15 @@ class RegisterView(View):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            new_user = User.objects.create_user(password=form.cleaned_data['password'],
-                                                username=form.cleaned_data['username'],
-                                                first_name=form.cleaned_data['first_name'],
-                                                last_name=form.cleaned_data['last_name'],
-                                                email=form.cleaned_data['email'])
+            try:
+                new_user = User.objects.create_user(password=form.cleaned_data['password'],
+                                                    username=form.cleaned_data['username'],
+                                                    first_name=form.cleaned_data['first_name'],
+                                                    last_name=form.cleaned_data['last_name'],
+                                                    email=form.cleaned_data['email'])
+            except IntegrityError:
+                return render(request, "final_project_app/register.html",
+                              {'form': form, 'error': 'This user is already exist.'})
             normal_user_group = Group.objects.get(name='normal_users')
             normal_user_group.user_set.add(new_user)
             return redirect('/home')
