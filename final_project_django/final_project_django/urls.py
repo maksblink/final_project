@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from final_project_app.views import HomeView, RegisterView, LoginView, LogoutView
+from final_project_app.views import HomeView, RegisterView, LoginView, LogoutView, ChangePasswordView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
     re_path(r'^register/$', RegisterView.as_view(), name="register"),
     re_path(r'^login/$', LoginView.as_view(), name="log_in"),
     re_path(r'^logout/$', LogoutView.as_view(), name="log_out"),
+    re_path(r'^change_password/(?P<user_id>\d+)/$', ChangePasswordView.as_view(), name="change_password"),
 ]

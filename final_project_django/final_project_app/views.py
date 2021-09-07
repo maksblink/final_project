@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ChangePasswordForm
 
 User = get_user_model()
 
@@ -30,7 +31,7 @@ class RegisterView(View):
                                                     email=form.cleaned_data['email'])
             except IntegrityError:
                 return render(request, "final_project_app/register.html",
-                              {'form': form, 'error': 'This user is already exist.'})
+                              {'form': form, 'error': 'This user already exists.'})
             normal_user_group = Group.objects.get(name='normal_users')
             normal_user_group.user_set.add(new_user)
             return redirect('/home')
@@ -61,3 +62,23 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('/home')
+
+
+class ChangePasswordView(View):
+    def get(self, request, user_id):
+        form = ChangePasswordForm()
+        return render(request, 'final_project_app/change_password.html', {'form': form})
+
+    def post(self, request, user_id):
+        form = ChangePasswordForm(request.POST)
+        try:
+            user = User.objects.get(pk=user_id)
+        except ObjectDoesNotExist:
+            return render(request, 'final_project_app/change_password.html',
+                          {'form': form, 'error': 'User with this id does not exist.'})
+        if form.is_valid():
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return redirect('/home')
+        else:
+            return render(request, 'final_project_app/change_password.html', {'form': form})
