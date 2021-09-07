@@ -20,6 +20,16 @@ def fake_user_data():
     }
 
 
+def fake_user_data_for_sign_up():
+    data = fake_user_data()
+    data["password_again"] = data["password"]
+    return data
+
+
 def create_fake_user():
     fake_user = User.objects.create_user(**fake_user_data())
     add_permissions(fake_user)
+
+
+def create_fake_group():
+    Group.objects.get_or_create(name='normal_users')

@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from faker import Faker
 
-from utils import fake_user_data
+from utils import fake_user_data_for_sign_up
 
 faker = Faker("pl_PL")
 
@@ -10,25 +10,23 @@ faker = Faker("pl_PL")
 @pytest.mark.django_db
 def test_add_user(client, set_up):
     users_before = User.objects.count()
-    new_user = fake_user_data()
+    new_user = fake_user_data_for_sign_up()
     response = client.post("/register/", {**new_user})
-    assert response.status_code == 201
+    assert response.status_code == 302
     assert User.objects.count() == users_before + 1
-    for key, value in new_user.items():
-        assert key in response.data
-        assert response.data[key] == value
 
 
-@ pytest.mark.django_db
-def test_add_user(client, set_up):
-    users_before = User.objects.count()
-    new_user = fake_user_data()
-    response = client.post("/register/", {**new_user})
-    assert response.status_code == 201
-    assert User.objects.count() == users_before + 1
-    for key, value in new_user.items():
-        assert key in response.data
-        assert response.data[key] == value
+@pytest.mark.django_db
+def test_login_and_logout(client, set_up):
+    user = User.objects.first()
+    # assert user.authenticated() is not None  # ???
+    response = client.post("/login/", {"login": user.username, "password": user.password})
+    assert response.status_code == 200
+    # assert user.authenticated() is not None
+
+    response = client.get("/logout/")
+    # assert response.status_code == 200
+    assert not user.is_authenticated()
 
 #
 # @pytest.mark.django_db
