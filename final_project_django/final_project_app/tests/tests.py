@@ -11,7 +11,7 @@ faker = Faker("pl_PL")
 def test_add_user(client, set_up):
     users_before = User.objects.count()
     new_user = fake_user_data_for_sign_up()
-    response = client.post("/register/", {**new_user})
+    response = client.post("/register/", new_user)
     assert response.status_code == 302
     assert User.objects.count() == users_before + 1
 
@@ -19,14 +19,11 @@ def test_add_user(client, set_up):
 @pytest.mark.django_db
 def test_login_and_logout(client, set_up):
     user = User.objects.first()
-    # assert user.authenticated() is not None  # ???
     response = client.post("/login/", {"login": user.username, "password": user.password})
     assert response.status_code == 200
-    # assert user.authenticated() is not None
 
     response = client.get("/logout/")
-    # assert response.status_code == 200
-    assert not user.is_authenticated()
+    assert response.status_code == 302
 
 #
 # @pytest.mark.django_db

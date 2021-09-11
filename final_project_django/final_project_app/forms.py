@@ -1,12 +1,12 @@
 import django.forms as forms
 from django.core.exceptions import ValidationError
+from django.forms import RadioSelect
 
 
-# def passwords(clean):
-#     cleaned_data = super().clean()
-#     if cleaned_data['password'] != cleaned_data['password_again']:
-#         raise ValidationError('Passwords do not match.')
-#     return cleaned_data
+def passwords(cleaned_data):
+    if cleaned_data['password'] != cleaned_data['password_again']:
+        raise ValidationError('Passwords do not match.')
+    return cleaned_data
 
 
 class RegisterForm(forms.Form):
@@ -17,14 +17,9 @@ class RegisterForm(forms.Form):
     last_name = forms.CharField()
     email = forms.EmailField()
 
-    # def clean(self):
-    #     passwords(self)
-
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data['password'] != cleaned_data['password_again']:
-            raise ValidationError('Passwords do not match.')
-        return cleaned_data
+        return passwords(cleaned_data)
 
 
 class LoginForm(forms.Form):
@@ -36,11 +31,22 @@ class ChangePasswordForm(forms.Form):
     password = forms.CharField(label='New password.', widget=forms.PasswordInput)
     password_again = forms.CharField(label='Repeat password.', widget=forms.PasswordInput)
 
-    # def clean(self):
-    #     passwords(self)
-
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data['password'] != cleaned_data['password_again']:
-            raise ValidationError('Passwords do not match.')
-        return cleaned_data
+        return passwords(cleaned_data)
+
+
+OPERATORS = (
+    ('+', '+'),
+    ('-', '-'),
+    ('*', '*'),
+    ('/', '/'),
+    ('%', '%'),
+)
+
+
+class OptionsForm(forms.Form):
+    operation = forms.ChoiceField(choices=OPERATORS, widget=RadioSelect())
+    # number_of_fields = forms.IntegerField()
+    maximum_number = forms.IntegerField()
+    minimum_number = forms.IntegerField()

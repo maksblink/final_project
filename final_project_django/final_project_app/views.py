@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import RegisterForm, LoginForm, ChangePasswordForm
+from .forms import RegisterForm, LoginForm, ChangePasswordForm, OptionsForm
 
 User = get_user_model()
 
@@ -82,3 +82,16 @@ class ChangePasswordView(View):
             return redirect('/home')
         else:
             return render(request, 'final_project_app/change_password.html', {'form': form})
+
+
+class ChooseTheOptionsView(View):
+    def get(self, request):
+        form = OptionsForm()
+        return render(request, 'final_project_app/confirm_options.html', {'form': form})
+
+    def post(self, request):
+        form = OptionsForm(request.POST)
+        if form.is_valid():
+            return redirect('/home')
+        else:
+            return render(request, 'final_project_app/confirm_options.html', {'form': form})

@@ -7,11 +7,13 @@
 <body>
 <h1>BrainMath</h1>
 <menu>
+    <li><a href="{% url 'home' %}">Home</a></li>
     <li><a href="{% url 'register' %}">Sign Up</a></li>
     <li><a href="{% url 'log_in' %}">Log In</a></li>
     {% if user.is_authenticated %}
         <li><a href="{% url 'log_out' %}">Log Out</a></li>
         <li><a href="{% url 'change_password' user.id %}">Change password</a></li>
+        <li><a href="{% url 'choose_options' %}">Let's play</a></li>
     {% endif %}
 </menu>
 {% block content %}
