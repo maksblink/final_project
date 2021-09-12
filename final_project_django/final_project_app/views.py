@@ -95,15 +95,13 @@ class ChooseTheOptionsView(View):
     def post(self, request):
         form = OptionsForm(request.POST)
 
-        # walidacja zasięgu
-
         if form.is_valid():
             game = Game.objects.create(operator=form.cleaned_data['operation'],
                                        range1_min=form.cleaned_data['minimum_number_of_first_factor'],
                                        range1_max=form.cleaned_data['maximum_number_of_first_factor'],
                                        range2_min=form.cleaned_data['minimum_number_of_second_factor'],
                                        range2_max=form.cleaned_data['maximum_number_of_second_factor'])
-            return redirect('/play', game_id=game.id)
+            return redirect('play', game_id=game.id)
         else:
             return render(request, 'final_project_app/confirm_options.html', {'form': form})
 

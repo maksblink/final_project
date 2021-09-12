@@ -53,6 +53,13 @@ class OptionsForm(forms.Form):
     maximum_number_of_second_factor = forms.IntegerField()
     minimum_number_of_second_factor = forms.IntegerField()
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['maximum_number_of_first_factor'] < cleaned_data['minimum_number_of_first_factor'] or \
+                cleaned_data['maximum_number_of_second_factor'] < cleaned_data['minimum_number_of_second_factor']:
+            raise ValidationError('The minimum number can not be greater than the maximum number.')
+        return cleaned_data
+
 
 class PlayForm(forms.Form):
     answer = forms.IntegerField()
