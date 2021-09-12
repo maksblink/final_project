@@ -1,3 +1,5 @@
+from random import randint
+
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
@@ -5,7 +7,8 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import RegisterForm, LoginForm, ChangePasswordForm, OptionsForm
+from .forms import RegisterForm, LoginForm, ChangePasswordForm, OptionsForm, PlayForm
+from .models import Game, GameAnswers
 
 User = get_user_model()
 
@@ -91,7 +94,46 @@ class ChooseTheOptionsView(View):
 
     def post(self, request):
         form = OptionsForm(request.POST)
+
+        # walidacja zasięgu
+
         if form.is_valid():
-            return redirect('/home')
+            game = Game.objects.create(operator=form.cleaned_data['operation'],
+                                       range1_min=form.cleaned_data['minimum_number_of_first_factor'],
+                                       range1_max=form.cleaned_data['maximum_number_of_first_factor'],
+                                       range2_min=form.cleaned_data['minimum_number_of_second_factor'],
+                                       range2_max=form.cleaned_data['maximum_number_of_second_factor'])
+            return redirect('/play', game_id=game.id)
         else:
             return render(request, 'final_project_app/confirm_options.html', {'form': form})
+
+
+class PlayView(View):
+    def get(self, request, game_id):
+        game = Game.objects.get(pk=game_id)
+        form = PlayForm()
+        first = randint(game.range1_min, game.range1_max)
+        second = randint(game.range2_min, game.range2_max)
+        op = game.operator
+        if op == "+":
+            correct_answer = first + second
+        elif op == "-":
+            correct_answer = first - second
+        elif op == "*":
+            correct_answer = first * second
+        elif op == "/":
+            correct_answer = first / second
+        elif op == "%":
+            correct_answer = first % second
+        GameAnswers.objects.create(first_factor=first, second_factor=second, game_id=game,
+                                   correct_answer=correct_answer)
+        ctx = {
+            'form': form,
+            'operator': op,
+            'first': first,
+            'second': second
+        }
+        return render(request, 'final_project_app/play.html', ctx)
+
+    def post(self, request, game_id):
+        pass

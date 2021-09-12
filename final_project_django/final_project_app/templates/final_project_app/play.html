@@ -1,0 +1,11 @@
+{% extends 'final_project_app/base.html' %}
+{% block title %}Choose options{% endblock %}
+{% block content %}
+    What is {{ first }} {{ operator }} {{ second }}?
+    {{ error }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Check">
+    </form>
+{% endblock %}
