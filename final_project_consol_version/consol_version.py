@@ -20,8 +20,14 @@ def operation(x, y, operator):
 
     while True:
         rounds += 1
-        first = randint(int(a), int(b))
-        second = randint(int(c), int(d))
+        try:
+            first = randint(int(a), int(b))
+            second = randint(int(c), int(d))
+        except ValueError:
+            print("Bad form of range.")
+            print("")
+            main()
+
         result = evaluate_operation(first, second, operator)
 
         answer_special = input(f"What is {first} {result[1]} {second}: ")
