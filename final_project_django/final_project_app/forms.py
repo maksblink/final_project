@@ -62,4 +62,5 @@ class OptionsForm(forms.Form):
 
 
 class PlayForm(forms.Form):
-    answer = forms.IntegerField()
+    answer = forms.IntegerField(required=False)
+    answer_id = forms.IntegerField(widget=forms.HiddenInput())

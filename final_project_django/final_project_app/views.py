@@ -109,7 +109,6 @@ class ChooseTheOptionsView(View):
 class PlayView(View):
     def get(self, request, game_id):
         game = Game.objects.get(pk=game_id)
-        form = PlayForm()
         first = randint(game.range1_min, game.range1_max)
         second = randint(game.range2_min, game.range2_max)
         op = game.operator
@@ -123,8 +122,9 @@ class PlayView(View):
             correct_answer = first / second
         elif op == "%":
             correct_answer = first % second
-        GameAnswers.objects.create(first_factor=first, second_factor=second, game_id=game,
-                                   correct_answer=correct_answer)
+        answer = GameAnswers.objects.create(first_factor=first, second_factor=second, game_id=game,
+                                            correct_answer=correct_answer)
+        form = PlayForm({'answer_id': answer.id})
         ctx = {
             'form': form,
             'operator': op,
@@ -134,4 +134,29 @@ class PlayView(View):
         return render(request, 'final_project_app/play.html', ctx)
 
     def post(self, request, game_id):
-        pass
+        form = PlayForm(request.POST)
+        if form.is_valid():
+            user_answer = form.cleaned_data['answer']
+            if user_answer is None or "e" in user_answer:  # we need to make the validation for format "1e1"
+                form.add_error('answer', "This field is required.")
+                ctx = {
+                    'form': form,
+                    'operator': request.POST.get('operator'),
+                    'first': request.POST.get('first'),
+                    'second': request.POST.get('second')
+                }
+                return render(request, 'final_project_app/play.html', ctx)
+            object_answer = GameAnswers.objects.get(pk=form.cleaned_data['answer_id'])
+            object_answer.answer = user_answer
+            object_answer.save()
+            game = Game.objects.get(pk=game_id)
+            if user_answer == object_answer.correct_answer:
+                game.number_of_correct_answers += 1
+                object_answer.was_this_answer_correct = True
+            else:
+                game.number_of_wrong_answers += 1
+                object_answer.was_this_answer_correct = False
+            return redirect('play', game_id=game_id)
+
+        else:
+            return render(request, 'final_project_app/play.html', {'form': form})

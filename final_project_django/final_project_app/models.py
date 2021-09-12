@@ -14,7 +14,7 @@ class Game(models.Model):
 class GameAnswers(models.Model):
     first_factor = models.IntegerField()
     second_factor = models.IntegerField()
-    answer = models.IntegerField()
+    answer = models.IntegerField(null=True)
     correct_answer = models.IntegerField()
-    was_this_answer_correct = models.BooleanField()
-    game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
+    was_this_answer_correct = models.BooleanField(null=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)

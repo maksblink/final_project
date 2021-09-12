@@ -6,6 +6,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="hidden" value="{{ first }}" name="first">
+        <input type="hidden" value="{{ operator }}" name="operator">
+        <input type="hidden" value="{{ second }}" name="second">
         <input type="submit" value="Check">
     </form>
 {% endblock %}
