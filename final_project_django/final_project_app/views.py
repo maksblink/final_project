@@ -122,7 +122,7 @@ class PlayView(View):
             correct_answer = first / second
         elif op == "%":
             correct_answer = first % second
-        answer = GameAnswers.objects.create(first_factor=first, second_factor=second, game_id=game,
+        answer = GameAnswers.objects.create(first_factor=first, second_factor=second, game=game,
                                             correct_answer=correct_answer)
         form = PlayForm({'answer_id': answer.id})
         ctx = {
@@ -137,7 +137,7 @@ class PlayView(View):
         form = PlayForm(request.POST)
         if form.is_valid():
             user_answer = form.cleaned_data['answer']
-            if user_answer is None or "e" in user_answer:  # we need to make the validation for format "1e1"
+            if user_answer is None:  # or "e" in user_answer:  # we need to make the validation for format "1e1"
                 form.add_error('answer', "This field is required.")
                 ctx = {
                     'form': form,
@@ -156,7 +156,7 @@ class PlayView(View):
             else:
                 game.number_of_wrong_answers += 1
                 object_answer.was_this_answer_correct = False
+            game.save()
             return redirect('play', game_id=game_id)
-
         else:
             return render(request, 'final_project_app/play.html', {'form': form})
