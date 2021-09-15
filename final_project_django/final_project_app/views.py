@@ -159,4 +159,18 @@ class PlayView(View):
             game.save()
             return redirect('play', game_id=game_id)
         else:
-            return render(request, 'final_project_app/play.html', {'form': form})
+            ctx = {
+                'form': form,
+                'operator': request.POST.get('operator'),
+                'first': request.POST.get('first'),
+                'second': request.POST.get('second')
+            }
+            return render(request, 'final_project_app/play.html', ctx)
+
+
+class StopPlayView(View):
+    def get(self, request, game_id):
+        pass
+
+    def post(self, request, game_id):
+        pass
