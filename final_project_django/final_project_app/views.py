@@ -136,8 +136,13 @@ class PlayView(View):
     def post(self, request, game_id):
         form = PlayForm(request.POST)
         if form.is_valid():
+            stop = request.POST.get('btn')
+            object_answer = GameAnswers.objects.get(pk=form.cleaned_data['answer_id'])
+            if stop == 'Stop':
+                object_answer.delete()
+                return redirect('stop_play', game_id=game_id)
             user_answer = form.cleaned_data['answer']
-            if user_answer is None:  # or "e" in user_answer:  # we need to make the validation for format "1e1"
+            if user_answer is None:
                 form.add_error('answer', "This field is required.")
                 ctx = {
                     'form': form,
@@ -146,9 +151,7 @@ class PlayView(View):
                     'second': request.POST.get('second')
                 }
                 return render(request, 'final_project_app/play.html', ctx)
-            object_answer = GameAnswers.objects.get(pk=form.cleaned_data['answer_id'])
             object_answer.answer = user_answer
-            object_answer.save()
             game = Game.objects.get(pk=game_id)
             if user_answer == object_answer.correct_answer:
                 game.number_of_correct_answers += 1
@@ -156,6 +159,7 @@ class PlayView(View):
             else:
                 game.number_of_wrong_answers += 1
                 object_answer.was_this_answer_correct = False
+            object_answer.save()
             game.save()
             return redirect('play', game_id=game_id)
         else:
@@ -170,7 +174,24 @@ class PlayView(View):
 
 class StopPlayView(View):
     def get(self, request, game_id):
-        pass
+        game = Game.objects.get(pk=game_id)
+        game.is_game_ended = True
+        game.save()
+        correct_answers = game.number_of_correct_answers
+        wrong_answers = game.number_of_wrong_answers
+        try:
+            precision = round(correct_answers / (correct_answers + wrong_answers) * 100, 2)
+        except ZeroDivisionError:
+            precision = 0.0
 
-    def post(self, request, game_id):
-        pass
+        ctx = {
+            'operator': game.operator,
+            'range1_min': game.range1_min,
+            'range1_max': game.range1_max,
+            'range2_min': game.range2_min,
+            'range2_max': game.range2_max,
+            'number_of_correct_answers': correct_answers,
+            'number_of_wrong_answers': wrong_answers,
+            'precision': precision,
+        }
+        return render(request, 'final_project_app/stop_play.html', ctx)

@@ -9,6 +9,7 @@ class Game(models.Model):
     range2_max = models.IntegerField()
     number_of_correct_answers = models.IntegerField(default=0)
     number_of_wrong_answers = models.IntegerField(default=0)
+    is_game_ended = models.BooleanField(default=False)
 
 
 class GameAnswers(models.Model):

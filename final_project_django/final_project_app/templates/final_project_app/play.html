@@ -2,14 +2,13 @@
 {% block title %}Choose options{% endblock %}
 {% block content %}
     What is {{ first }} {{ operator }} {{ second }}?
-    {{ error }}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" value="{{ first }}" name="first">
         <input type="hidden" value="{{ operator }}" name="operator">
         <input type="hidden" value="{{ second }}" name="second">
-        <input type="submit" value="Check">
-{#        <button type="submit">Stop</button>#}
+        <input name="btn" type="submit" value="Check">
+        <input name="btn" type="submit" value="Stop">
     </form>
 {% endblock %}
