@@ -1,5 +1,5 @@
 {% extends 'final_project_app/base.html' %}
-{% block title %}Choose options{% endblock %}
+{% block title %}Game details{% endblock %}
 {% block content %}
     <h3>Game details</h3>
     <li>operator = {{ operator }}</li>
@@ -11,4 +11,5 @@
     <li>number_of_wrong_answers = {{ number_of_wrong_answers }}</li>
     <li>precision = {{ precision }}%</li>
     <li>user_id = {{ user_id }}</li>
+    <ul><a href="{% url 'games' user.id %}">Show my games</a></ul>
 {% endblock %}

@@ -16,6 +16,7 @@
         <li><a href="{% url 'log_out' %}">Log Out</a></li>
         <li><a href="{% url 'change_password' user.id %}">Change password</a></li>
         <li><a href="{% url 'choose_options' user.id %}">Let's play</a></li>
+        <li><a href="{% url 'games' user.id %}">Show my games</a></li>
     {% endif %}
 </menu>
 

@@ -1,0 +1,15 @@
+{% extends 'final_project_app/base.html' %}
+{% block title %}Games{% endblock %}
+{% block content %}
+    <h3>Games</h3>
+    {% for game in games %}
+        <li>{{ game.id }}</li>
+        {% for answer in game.gameanswers_set.all %}
+            {{ answer.game }}
+        {% empty %}
+            empty
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+{#all game will have link to games details#}
+{#all game will have link to answers list#}

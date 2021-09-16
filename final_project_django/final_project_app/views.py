@@ -197,3 +197,15 @@ class StopPlayView(View):
             'user_id': game.user,
         }
         return render(request, 'final_project_app/stop_play.html', ctx)
+
+
+class GamesView(View):
+    def get(self, request, user_id):
+        games = Game.objects.filter(user=user_id)
+        return render(request, 'final_project_app/games.html', {'games': games})
+
+
+class AnswersView(View):
+    def get(self, request, game_id):
+        answers = GameAnswers.objects.filter(game=game_id)
+        return render(request, 'final_project_app/answers.html', {'answers': answers})
