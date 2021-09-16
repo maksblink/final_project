@@ -27,7 +27,7 @@ urlpatterns = [
     re_path(r'^login/$', LoginView.as_view(), name="log_in"),
     re_path(r'^logout/$', LogoutView.as_view(), name="log_out"),
     re_path(r'^change_password/(?P<user_id>\d+)/$', ChangePasswordView.as_view(), name="change_password"),
-    re_path(r'^choose_the_options/$', ChooseTheOptionsView.as_view(), name="choose_options"),
+    re_path(r'^choose_the_options/(?P<user_id>\d+)/$', ChooseTheOptionsView.as_view(), name="choose_options"),
     re_path(r'^play/(?P<game_id>\d+)/$', PlayView.as_view(), name="play"),
     re_path(r'^stop_play/(?P<game_id>\d+)/$', StopPlayView.as_view(), name="stop_play"),
 ]

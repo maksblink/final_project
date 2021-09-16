@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -10,6 +11,7 @@ class Game(models.Model):
     number_of_correct_answers = models.IntegerField(default=0)
     number_of_wrong_answers = models.IntegerField(default=0)
     is_game_ended = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class GameAnswers(models.Model):

@@ -88,11 +88,11 @@ class ChangePasswordView(View):
 
 
 class ChooseTheOptionsView(View):
-    def get(self, request):
+    def get(self, request, user_id):
         form = OptionsForm()
         return render(request, 'final_project_app/confirm_options.html', {'form': form})
 
-    def post(self, request):
+    def post(self, request, user_id):
         form = OptionsForm(request.POST)
 
         if form.is_valid():
@@ -100,7 +100,8 @@ class ChooseTheOptionsView(View):
                                        range1_min=form.cleaned_data['minimum_number_of_first_factor'],
                                        range1_max=form.cleaned_data['maximum_number_of_first_factor'],
                                        range2_min=form.cleaned_data['minimum_number_of_second_factor'],
-                                       range2_max=form.cleaned_data['maximum_number_of_second_factor'])
+                                       range2_max=form.cleaned_data['maximum_number_of_second_factor'],
+                                       user=User.objects.get(pk=user_id))
             return redirect('play', game_id=game.id)
         else:
             return render(request, 'final_project_app/confirm_options.html', {'form': form})
@@ -193,5 +194,6 @@ class StopPlayView(View):
             'number_of_correct_answers': correct_answers,
             'number_of_wrong_answers': wrong_answers,
             'precision': precision,
+            'user_id': game.user,
         }
         return render(request, 'final_project_app/stop_play.html', ctx)

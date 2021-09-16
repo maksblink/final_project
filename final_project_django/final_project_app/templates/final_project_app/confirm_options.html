@@ -1,7 +1,6 @@
 {% extends 'final_project_app/base.html' %}
 {% block title %}Choose options{% endblock %}
 {% block content %}
-    {{ error }}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
