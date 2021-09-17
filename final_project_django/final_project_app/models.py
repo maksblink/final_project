@@ -13,6 +13,9 @@ class Game(models.Model):
     is_game_ended = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return f"Operator: {self.operator}"
+
 
 class GameAnswers(models.Model):
     first_factor = models.IntegerField()
@@ -21,3 +24,6 @@ class GameAnswers(models.Model):
     correct_answer = models.IntegerField()
     was_this_answer_correct = models.BooleanField(null=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"First factor: {self.first_factor} Second factor: {self.first_factor}"

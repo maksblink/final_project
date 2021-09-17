@@ -20,12 +20,15 @@ body {
 
 .header {
     display: inline;
-    font-size: 701px;
+    font-size: 70px;
     font-weight: bold;
     color: white;
     height: 80px;
     padding: 0px 0px 10px 10px;
-    text-underline-mode: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 .header span {
