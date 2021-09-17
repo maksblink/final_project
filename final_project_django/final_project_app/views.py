@@ -27,11 +27,11 @@ class RegisterView(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             try:
-                new_user = User.objects.create_user(password=form.cleaned_data['password'],
-                                                    username=form.cleaned_data['username'],
-                                                    first_name=form.cleaned_data['first_name'],
-                                                    last_name=form.cleaned_data['last_name'],
-                                                    email=form.cleaned_data['email'])
+                new_user = User.objects.create_user(password=request.POST.get('password'),
+                                                    username=request.POST.get('username'),
+                                                    first_name=request.POST.get('first_name'),
+                                                    last_name=request.POST.get('last_name'),
+                                                    email=request.POST.get('email'))
             except IntegrityError:
                 return render(request, "final_project_app/register.html",
                               {'form': form, 'error': 'This user already exists.'})

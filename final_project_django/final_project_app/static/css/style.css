@@ -1,0 +1,150 @@
+* {
+    margin: 0%;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    height: 100vh;
+    font-size: 20px;
+}
+
+.navigation-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: #16b8f3;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    display: inline;
+    font-size: 701px;
+    font-weight: bold;
+    color: white;
+    height: 80px;
+    padding: 0px 0px 10px 10px;
+    text-underline-mode: none;
+}
+
+.header span {
+    color: orange;
+}
+
+.nav_button {
+    color: #16b8f3;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 10px 30px;
+    background: white;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.nav_button:hover {
+    color: #fff;
+    background: orange;
+    transition: background 0.2s, color 0.2s;
+}
+
+.flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /*height: 700px;*/
+    padding-right: 10%;
+}
+
+.container {
+    width: 350px;
+    background-color: #16b8f3;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    margin: 18px;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input {
+    font-size: 18px;
+    width: 100%;
+    padding: 14px 0px 14px 14px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: grey;
+    background: #eae9e9;
+}
+
+input::placeholder {
+    font-size: 18px;
+}
+
+.submit {
+    width: 100%;
+    padding: 18px 36px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    background: orange;
+    margin-top: 25px;
+}
+
+.submit:hover {
+    box-shadow: none;
+    transition: background 0.5s;
+    background: #FFBE00;
+}
+
+.submit:active {
+    transition: transform 0.2s;
+    transform: scale(0.99);
+}
+
+.links {
+    text-align: center;
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.form_error {
+    text-align: center;
+    color: grey;
+    margin-bottom: 5px;
+}
+
+.marginsign {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.marginlogin {
+    margin-top: 10px;
+!important;
+}
+

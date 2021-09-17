@@ -3,9 +3,9 @@
 {% block content %}
     <h3>Games</h3>
     {% for game in games %}
-        <li>{{ game.id }}</li>
+        <li>{{ game.operator }}</li>
         {% for answer in game.gameanswers_set.all %}
-            {{ answer.game }}
+            {{ answer.correct_answer }}
         {% empty %}
             empty
         {% endfor %}

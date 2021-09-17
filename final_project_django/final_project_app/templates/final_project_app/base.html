@@ -2,30 +2,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/xy.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BrainMath{% endblock %} | BrainMath</title>
 </head>
 <body>
-<h1>BrainMath</h1>
-<menu>
-    <li><a href="{% url 'home' %}">Home</a></li>
-    <li><a href="{% url 'register' %}">Sign Up</a></li>
-    <li><a href="{% url 'log_in' %}">Log In</a></li>
-    {% if user.is_authenticated %}
-        <li><a href="{% url 'log_out' %}">Log Out</a></li>
-        <li><a href="{% url 'change_password' user.id %}">Change password</a></li>
-        <li><a href="{% url 'choose_options' user.id %}">Let's play</a></li>
-        <li><a href="{% url 'games' user.id %}">Show my games</a></li>
-    {% endif %}
-</menu>
-
-<hr style="width:100%" , size="3" , color=black>
+<div class="navigation-flex">
+{#    <a href="{% url 'home' %}">#}
+        <header class="header">Brain<span>Math</span></header>
+{#    </a>#}
+    <nav>
+        {% if user.is_authenticated %}
+            <a class="nav_button" href="{% url 'games' user.id %}">My games</a>
+            <a class="nav_button" href="{% url 'change_password' user.id %}">Change password</a>
+            <a class="nav_button" href="{% url 'log_out' %}">Log Out</a>
+        {% else %}
+            <a class="nav_button" href="{% url 'register' %}">Sign Up</a>
+            <a class="nav_button" href="{% url 'log_in' %}">Log In</a>
+        {% endif %}
+    </nav>
+</div>
 
 {% block content %}
-    <h2>Home</h2>
+    {#        <h2>Home</h2>#}
 {% endblock %}
+
 <br>Data: -----------------> {{ now }}<br>
 Wersja: ---------------> {{ version }}
+
 </body>
 </html>
