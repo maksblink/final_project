@@ -157,5 +157,5 @@ input::placeholder {
     align-items: center;
     height: 75%;
     width: auto;
-    font-size: 60px;
+    font-size: 60px;!important;
 }
