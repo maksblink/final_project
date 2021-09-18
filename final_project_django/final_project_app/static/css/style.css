@@ -160,16 +160,16 @@ input::placeholder {
 }
 
 .play {
-    /*color: #16b8f3;*/
-    color: white;
+    color: #16b8f3;
     text-decoration: none;
-    font-size: 60px;
-    background: #16b8f3;
+    font-size: 100px;
+    background: white;
     border-radius: 5px;
+    padding: 60px 45px;
 }
 
 .play:hover {
     color: #fff;
     background: orange;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.8s, color 0.6s;
 }
