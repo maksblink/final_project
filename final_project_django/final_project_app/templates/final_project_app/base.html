@@ -27,9 +27,12 @@
         {% endif %}
     </nav>
 </div>
-
 {% block content %}
-    <a class="nav_button" href="{% url 'choose_options' user.id %}">Let's play</a>
+    {% if user.is_authenticated %}
+        <div class="center">
+            <a class="nav_button" href="{% url 'choose_options' user.id %}">Let's play</a>
+        </div>
+    {% endif %}
 {% endblock %}
 
 <br>Data: -----------------> {{ now }}<br>
