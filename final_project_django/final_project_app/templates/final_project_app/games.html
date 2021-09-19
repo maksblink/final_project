@@ -1,15 +1,17 @@
 {% extends 'final_project_app/base.html' %}
 {% block title %}Games{% endblock %}
 {% block content %}
-    <h3>Games</h3>
-    {% for game in games %}
-        <li>{{ game.operator }}</li>
-        {% for answer in game.gameanswers_set.all %}
-            {{ answer.correct_answer }}
-        {% empty %}
-            empty
+    <div class="black">
+        <h3>Games</h3>
+        {% for game in games %}
+            <a href="stop_play.html game_id=1">{{ game.date }}</a>
+            {% for answer in game.gameanswers_set.all %}
+{#                answers: {{ answer.count() }}#}
+            {% empty %}
+                empty
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+    </div>
 {% endblock %}
 {#all game will have link to games details#}
 {#all game will have link to answers list#}

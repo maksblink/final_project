@@ -2,17 +2,20 @@
 {% block title %}Answers{% endblock %}
 {% block content %}
     <h3>Answers</h3>
-    {% for game in games %}
-        <li>{{ game.id }}</li>
-        <li>{{ game.id }}</li>
-        {% for answer in game.gameanswers_set.all %}
-            game {{ answer.game }}<br>
-            first {{ answer.first_factor }}<br>
-            second {{ answer.second_factor }}<br>
-        {% empty %}
-            empty
+    <div class="black">
+        {% for game in games %}
+            <li>{{ game.id }}</li>
+            <li>{{ game.operator }}</li>
+            {% for answer in game.gameanswers_set.all %}
+                desjrfjhudsghgdsgfhdsgyuhfhw
+                game {{ answer.game }}<br>
+                first {{ answer.first_factor }}<br>
+                second {{ answer.second_factor }}<br>
+            {% empty %}
+                empty
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+    </div>
 {% endblock %}
 {#all game will have link to games details#}
 {#all game will have link to answers list#}

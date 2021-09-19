@@ -160,7 +160,7 @@ class PlayView(View):
             object_answer = GameAnswers.objects.get(pk=form.cleaned_data['answer_id'])
             if stop == 'Stop':
                 object_answer.delete()
-                return redirect('stop_play', game_id=game_id)
+                return redirect('game_details', game_id=game_id)
             user_answer = form.cleaned_data['answer']
             if user_answer is None:
                 form.add_error('answer', "This field is required.")
@@ -196,7 +196,7 @@ class PlayView(View):
             return render(request, 'final_project_app/play.html', ctx)
 
 
-class StopPlayView(View):
+class GamesDetailsView(View):
     def get(self, request, game_id):
         game = Game.objects.get(pk=game_id)
         game.is_game_ended = True
