@@ -3,6 +3,8 @@ from django.db import models
 
 
 class Game(models.Model):
+    name = models.CharField(max_length=64)
+    date = models.DateTimeField(auto_now=True)
     operator = models.CharField(max_length=1)
     range1_min = models.IntegerField()
     range1_max = models.IntegerField()

@@ -4,12 +4,7 @@
     <div class="black">
         <h3>Games</h3>
         {% for game in games %}
-            <a href="stop_play.html game_id=1">{{ game.date }}</a>
-            {% for answer in game.gameanswers_set.all %}
-{#                answers: {{ answer.count() }}#}
-            {% empty %}
-                empty
-            {% endfor %}
+            <li><a class="" href="{% url 'game_details' game_id=game.id %}">{{ game.name }} Date: {{ game.date }}</a> Number of answers: {{ game.gameanswers_set.all.count }}</li>
         {% endfor %}
     </div>
 {% endblock %}
