@@ -265,3 +265,7 @@ input::placeholder {
     margin-bottom: 20px;
     text-align: center;
 }
+
+.mrg {
+    margin: 15px;
+}

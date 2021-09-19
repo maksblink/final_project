@@ -2,13 +2,15 @@
 {% block title %}Play{% endblock %}
 {% block content %}
     <div class="answer_container">
-        {{ error }}
-        {% if form.errors %}
-            {% for error in form.non_field_errors %}
-                <p class="label-danger">{{ error|escape }}</p>
-            {% endfor %}
-        {% endif %}
         <p class="elo">What is {{ first }} {{ operator }} {{ second }}?</p>
+        <div class="form_error">
+            {{ error }}
+            {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="label-danger">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
         <form method="post">
             {% csrf_token %}
             <p>
@@ -20,7 +22,7 @@
             <input type="hidden" value="{{ operator }}" name="operator">
             <input type="hidden" value="{{ second }}" name="second">
             <input class="submit space" name="btn" type="submit" value="Check">
-            <input class="submit" name="btn" type="submit" value="Stop">
+            <input class="submit mrg" name="btn" type="submit" value="Stop">
         </form>
     </div>
 {% endblock %}

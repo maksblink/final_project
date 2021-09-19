@@ -4,10 +4,11 @@
     <h3>Answers</h3>
     {% for game in games %}
         <li>{{ game.id }}</li>
+        <li>{{ game.id }}</li>
         {% for answer in game.gameanswers_set.all %}
-            game {{ answer.game }}
-            first {{ answer.first_factor }}
-            second {{ answer.second_factor }}
+            game {{ answer.game }}<br>
+            first {{ answer.first_factor }}<br>
+            second {{ answer.second_factor }}<br>
         {% empty %}
             empty
         {% endfor %}
