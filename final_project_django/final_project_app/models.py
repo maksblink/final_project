@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Game(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, default="Enter game name")
     date = models.DateTimeField(auto_now=True)
     operator = models.CharField(max_length=1)
     range1_min = models.IntegerField()

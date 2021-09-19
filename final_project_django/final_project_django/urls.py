@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 
 from final_project_app.views import HomeView, RegisterView, LoginView, LogoutView, ChangePasswordView, \
-    ChooseTheOptionsView, PlayView, GamesDetailsView, GamesView, AnswersView
+    ChooseTheOptionsView, PlayView, GamesDetailsView, GamesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +31,4 @@ urlpatterns = [
     re_path(r'^play/(?P<game_id>\d+)/$', PlayView.as_view(), name="play"),
     re_path(r'^games_details/(?P<game_id>\d+)/$', GamesDetailsView.as_view(), name="game_details"),
     re_path(r'^games/(?P<user_id>\d+)/$', GamesView.as_view(), name="games"),
-    re_path(r'^answers/(?P<game_id>\d+)/$', AnswersView.as_view(), name="answers"),
 ]

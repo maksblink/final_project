@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import RegisterForm, LoginForm, ChangePasswordForm, OptionsForm, PlayForm
+from .forms import RegisterForm, LoginForm, ChangePasswordForm, OptionsForm, PlayForm, NameForGameForm
 from .models import Game, GameAnswers
 
 User = get_user_model()
@@ -160,6 +160,9 @@ class PlayView(View):
             object_answer = GameAnswers.objects.get(pk=form.cleaned_data['answer_id'])
             if stop == 'Stop':
                 object_answer.delete()
+                game = Game.objects.get(pk=game_id)
+                game.is_game_ended = True
+                game.save()
                 return redirect('game_details', game_id=game_id)
             user_answer = form.cleaned_data['answer']
             if user_answer is None:
@@ -198,16 +201,15 @@ class PlayView(View):
 
 class GamesDetailsView(View):
     def get(self, request, game_id):
+        form = NameForGameForm()
         game = Game.objects.get(pk=game_id)
-        game.is_game_ended = True
-        game.save()
         correct_answers = game.number_of_correct_answers
         wrong_answers = game.number_of_wrong_answers
         try:
             precision = round(correct_answers / (correct_answers + wrong_answers) * 100, 2)
         except ZeroDivisionError:
             precision = 0.0
-
+        answers = game.gameanswers_set.all()
         ctx = {
             'operator': game.operator,
             'range1_min': game.range1_min,
@@ -218,17 +220,32 @@ class GamesDetailsView(View):
             'number_of_wrong_answers': wrong_answers,
             'precision': precision,
             'user_id': game.user,
+            'date': game.date,
+            'name': game.name,
+            'form': form,
+            'answers': answers,
         }
-        return render(request, 'final_project_app/stop_play.html', ctx)
+        return render(request, 'final_project_app/game_details.html', ctx)
+
+    def post(self, request, game_id):
+        form = NameForGameForm(request.POST)
+
+        if form.is_valid():
+            game = Game.objects.get(pk=game_id)
+            game.name = form.cleaned_data['name_of_this_game']
+            game.save()
+            return redirect('game_details', game_id=game.id)
+
+        else:
+            return render(request, 'final_project_app/game_details.html',
+                          {'form': form, 'error': "Something went wrong"})
 
 
 class GamesView(View):
     def get(self, request, user_id):
         games = Game.objects.filter(user=user_id)
+        for game in games:
+            if not game.is_game_ended:
+                game.delete()
+        games = Game.objects.filter(user=user_id).order_by('-date')
         return render(request, 'final_project_app/games.html', {'games': games})
-
-
-class AnswersView(View):
-    def get(self, request, game_id):
-        answers = GameAnswers.objects.filter(game=game_id)
-        return render(request, 'final_project_app/answers.html', {'answers': answers})

@@ -47,7 +47,6 @@ OPERATORS = (
 
 class OptionsForm(forms.Form):
     operation = forms.ChoiceField(choices=OPERATORS, widget=Select())
-    # number_of_fields = forms.IntegerField()
     maximum_number_of_first_factor = forms.IntegerField()
     minimum_number_of_first_factor = forms.IntegerField()
     maximum_number_of_second_factor = forms.IntegerField()
@@ -64,3 +63,7 @@ class OptionsForm(forms.Form):
 class PlayForm(forms.Form):
     answer = forms.IntegerField(required=False)
     answer_id = forms.IntegerField(widget=forms.HiddenInput())
+
+
+class NameForGameForm(forms.Form):
+    name_of_this_game = forms.CharField(max_length=64)

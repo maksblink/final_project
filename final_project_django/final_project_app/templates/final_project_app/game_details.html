@@ -1,0 +1,79 @@
+{% extends 'final_project_app/base.html' %}
+{% block title %}Game details{% endblock %}
+{% block content %}
+    <div class="black">
+        <div class="form_error">
+            {{ error }}
+            {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="label-danger">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <table>
+            <th>Game details</th>
+            <tr>
+                <td>name</td>
+                <td>date</td>
+                <td>operator</td>
+                <td>range1_min</td>
+                <td>range1_max</td>
+                <td>range2_min</td>
+                <td>range2_max</td>
+                <td>number_of_correct_answers</td>
+                <td>number_of_wrong_answers</td>
+                <td>precision</td>
+                <td>user_id</td>
+            </tr>
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ date }}</td>
+                <td>{{ operator }}</td>
+                <td>{{ range1_min }}</td>
+                <td>{{ range1_max }}</td>
+                <td>{{ range2_min }}</td>
+                <td>{{ range2_max }}</td>
+                <td>{{ number_of_correct_answers }}</td>
+                <td>{{ number_of_wrong_answers }}</td>
+                <td>{{ precision }}%</td>
+                <td>{{ user_id }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'games' user.id %}">Show my games</a>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Set name">
+        </form>
+
+        <table>
+            <th>Answers</th>
+            <tr>
+                <td>first_factor</td>
+                <td>second_factor</td>
+                <td>answer (your one)</td>
+                <td>correct_answer</td>
+                <td>was_this_answer_correct</td>
+            </tr>
+            {% for answer in answers %}
+                <tr>
+                    <td>
+                        {{ answer.first_factor }}
+                    </td>
+                    <td>
+                        {{ answer.second_factor }}
+                    </td>
+                    <td>
+                        {{ answer.answer }}
+                    </td>
+                    <td>
+                        {{ answer.correct_answer }}
+                    </td>
+                    <td>
+                        {{ answer.was_this_answer_correct }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
