@@ -110,28 +110,47 @@ class ChooseTheOptionsView(View):
 class PlayView(View):
     def get(self, request, game_id):
         game = Game.objects.get(pk=game_id)
-        first = randint(game.range1_min, game.range1_max)
-        second = randint(game.range2_min, game.range2_max)
-        op = game.operator
-        if op == "+":
-            correct_answer = first + second
-        elif op == "-":
-            correct_answer = first - second
-        elif op == "*":
-            correct_answer = first * second
-        elif op == "/":
-            correct_answer = first / second
-        elif op == "%":
-            correct_answer = first % second
-        answer = GameAnswers.objects.create(first_factor=first, second_factor=second, game=game,
-                                            correct_answer=correct_answer)
-        form = PlayForm({'answer_id': answer.id})
-        ctx = {
-            'form': form,
-            'operator': op,
-            'first': first,
-            'second': second
-        }
+        answer_possible_wrong = game.gameanswers_set.last()
+        if answer_possible_wrong is None:
+            class FakeObj:
+                def __init__(self, answer):
+                    self.answer = answer
+
+            answer_possible_wrong = FakeObj("fake_answer")
+        if answer_possible_wrong.answer is None:
+            answer = answer_possible_wrong
+            form = PlayForm({'answer_id': answer.id})
+            ctx = {
+                'form': form,
+                'operator': game.operator,
+                'first': answer.first_factor,
+                'second': answer.second_factor,
+                'answer_id': answer.id
+            }
+        else:
+            first = randint(game.range1_min, game.range1_max)
+            second = randint(game.range2_min, game.range2_max)
+            op = game.operator
+            if op == "+":
+                correct_answer = first + second
+            elif op == "-":
+                correct_answer = first - second
+            elif op == "*":
+                correct_answer = first * second
+            elif op == "/":
+                correct_answer = first / second
+            elif op == "%":
+                correct_answer = first % second
+            answer = GameAnswers.objects.create(first_factor=first, second_factor=second, game=game,
+                                                correct_answer=correct_answer)
+            form = PlayForm({'answer_id': answer.id})
+            ctx = {
+                'form': form,
+                'operator': op,
+                'first': first,
+                'second': second,
+                'answer_id': answer.id
+            }
         return render(request, 'final_project_app/play.html', ctx)
 
     def post(self, request, game_id):
@@ -149,7 +168,9 @@ class PlayView(View):
                     'form': form,
                     'operator': request.POST.get('operator'),
                     'first': request.POST.get('first'),
-                    'second': request.POST.get('second')
+                    'second': request.POST.get('second'),
+                    'answer_id': request.POST.get('answer_id'),
+                    'error': "This field is required."
                 }
                 return render(request, 'final_project_app/play.html', ctx)
             object_answer.answer = user_answer
@@ -168,7 +189,9 @@ class PlayView(View):
                 'form': form,
                 'operator': request.POST.get('operator'),
                 'first': request.POST.get('first'),
-                'second': request.POST.get('second')
+                'second': request.POST.get('second'),
+                'answer_id': request.POST.get('answer_id'),
+                'error': "This is not valid a number."
             }
             return render(request, 'final_project_app/play.html', ctx)
 

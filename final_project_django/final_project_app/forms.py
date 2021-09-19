@@ -1,6 +1,6 @@
 import django.forms as forms
 from django.core.exceptions import ValidationError
-from django.forms import RadioSelect
+from django.forms import Select
 
 
 def passwords(cleaned_data):
@@ -46,7 +46,7 @@ OPERATORS = (
 
 
 class OptionsForm(forms.Form):
-    operation = forms.ChoiceField(choices=OPERATORS, widget=RadioSelect())
+    operation = forms.ChoiceField(choices=OPERATORS, widget=Select())
     # number_of_fields = forms.IntegerField()
     maximum_number_of_first_factor = forms.IntegerField()
     minimum_number_of_first_factor = forms.IntegerField()

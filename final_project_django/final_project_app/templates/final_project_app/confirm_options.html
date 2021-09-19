@@ -1,9 +1,54 @@
 {% extends 'final_project_app/base.html' %}
 {% block title %}Choose options{% endblock %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Confirm options">
-    </form>
+    <div class="options">
+        <form method="post">
+            {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="label-danger">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+            {% csrf_token %}
+            <p class="elo"><label for="id_operation_0">Operation</label>
+            <ul id="id_operation">
+                <div class="div_radio">
+                    <div class="ball">
+                        <label for="id_operation_0"><input checked="checked" type="radio" class="radio" name="operation"
+                                                           value="+" required id="id_operation_0">
+                            +</label></div>
+                    <div class="ball">
+                        <label for="id_operation_1"><input type="radio" class="radio" name="operation" value="-"
+                                                           required id="id_operation_1">
+                            -</label></div>
+                    <div class="ball">
+                        <label for="id_operation_2"><input class="radio" type="radio" name="operation" value="*"
+                                                           required id="id_operation_2">
+                            *</label></div>
+                    <div class="ball">
+                        <label for="id_operation_3"><input type="radio" class="radio" name="operation" value="/"
+                                                           required id="id_operation_3">
+                            /</label></div>
+                    <div class="ball">
+                        <label class="ball" for="id_operation_4"><input type="radio" class="radio" name="operation"
+                                                                        value="%" required id="id_operation_4">
+                            %</label></div>
+                </div>
+                </li>
+            </ul>
+            </p>
+            <p><label class="number" for="id_maximum_number_of_first_factor">Maximum number of first factor:</label>
+                <input type="number" class="input" name="maximum_number_of_first_factor" required
+                       id="id_maximum_number_of_first_factor"></p>
+            <p><label class="number" for="id_minimum_number_of_first_factor">Minimum number of first factor:</label>
+                <input type="number" class="input" name="minimum_number_of_first_factor" required
+                       id="id_minimum_number_of_first_factor"></p>
+            <p><label class="number" for="id_maximum_number_of_second_factor">Maximum number of second factor:</label>
+                <input type="number" class="input" name="maximum_number_of_second_factor" required
+                       id="id_maximum_number_of_second_factor"></p>
+            <p><label class="number" for="id_minimum_number_of_second_factor">Minimum number of second factor:</label>
+                <input type="number" class="input" name="minimum_number_of_second_factor" required
+                       id="id_minimum_number_of_second_factor"></p>
+            <button type="submit" class="submit">Confirm options</button>
+        </form>
+    </div>
 {% endblock %}

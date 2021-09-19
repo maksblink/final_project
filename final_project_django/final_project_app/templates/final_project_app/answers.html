@@ -5,7 +5,9 @@
     {% for game in games %}
         <li>{{ game.id }}</li>
         {% for answer in game.gameanswers_set.all %}
-            {{ answer.game }}
+            game {{ answer.game }}
+            first {{ answer.first_factor }}
+            second {{ answer.second_factor }}
         {% empty %}
             empty
         {% endfor %}

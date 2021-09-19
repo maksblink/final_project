@@ -1,14 +1,26 @@
 {% extends 'final_project_app/base.html' %}
 {% block title %}Play{% endblock %}
 {% block content %}
-    What is {{ first }} {{ operator }} {{ second }}?
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" value="{{ first }}" name="first">
-        <input type="hidden" value="{{ operator }}" name="operator">
-        <input type="hidden" value="{{ second }}" name="second">
-        <input name="btn" type="submit" value="Check">
-        <input name="btn" type="submit" value="Stop">
-    </form>
+    <div class="answer_container">
+        {{ error }}
+        {% if form.errors %}
+            {% for error in form.non_field_errors %}
+                <p class="label-danger">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+        <p class="elo">What is {{ first }} {{ operator }} {{ second }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label class="answer" for="id_answer">Answer:</label>
+                <input class="input" type="number" name="answer" id="id_answer">
+                <input type="hidden" name="answer_id" value="{{ answer_id }}" id="id_answer_id">
+            </p>
+            <input type="hidden" value="{{ first }}" name="first">
+            <input type="hidden" value="{{ operator }}" name="operator">
+            <input type="hidden" value="{{ second }}" name="second">
+            <input class="submit space" name="btn" type="submit" value="Check">
+            <input class="submit" name="btn" type="submit" value="Stop">
+        </form>
+    </div>
 {% endblock %}
