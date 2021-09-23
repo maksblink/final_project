@@ -285,3 +285,146 @@ td {
     border: 1px solid black;
 
 }
+
+.games_flex {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+}
+
+/* .games_image{
+    width: 600px;
+    height: 600px;
+    background-image: url(undraw_studying_s3l7.svg) ;
+    background-image: url(410px-Red_Silhouette_-_Brain.svg.png) ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 600px 600px;
+    background-attachment: local;
+
+}  */
+
+
+.games_title {
+    font-size: 50px;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(255, 166, 0);
+    color: white;
+    text-align: center;
+}
+
+
+.table_flex {
+    width: 1000px;
+    background-color: #16b8f3;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    margin: 18px;
+    padding: 20px;
+}
+
+
+.details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details_container {
+    width: 1500px;
+    background-color: #16b8f3;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    margin: 40px 18px 18px 18px;
+    padding: 20px;
+
+}
+
+.details_container_small {
+    width: 1200px;
+}
+
+.title {
+    text-align: center;
+    font-size: 50px;
+}
+
+
+table {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.ter {
+    color: white;
+    text-decoration: none;
+}
+
+td {
+    width: 200px;
+    text-align: center;
+    font-size: 22px;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+}
+
+.nbt {
+    border-top: none;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+.button {
+    width: 30%;
+    padding: 18px 36px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    background: orange;
+    margin-left: 20px;
+}
+
+.button:hover {
+    box-shadow: none;
+    transition: background 0.5s;
+    background: #FFBE00;
+}
+
+.button:active {
+    transition: transform 0.2s;
+    transform: scale(0.99);
+}
+
+
+.small_input {
+    margin: 0px;
+    width: 30%;
+}
+
+.big_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 40px;
+}
+
+.table_center {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
