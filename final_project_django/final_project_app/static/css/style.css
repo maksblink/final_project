@@ -270,21 +270,21 @@ input::placeholder {
     color: black;
 }
 
-table {
-    border: solid;
-    border: 10px;
-    width: 100%;
-}
+/*table {*/
+/*    border: solid;*/
+/*    border: 10px;*/
+/*    width: 100%;*/
+/*}*/
 
-tr {
-    border: 1px solid black;
+/*tr {*/
+/*    border: 1px solid black;*/
 
-}
+/*}*/
 
-td {
-    border: 1px solid black;
+/*td {*/
+/*    border: 1px solid black;*/
 
-}
+/*}*/
 
 .games_flex {
 
