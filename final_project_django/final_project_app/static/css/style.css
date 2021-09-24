@@ -198,21 +198,6 @@ input::placeholder {
 
 }
 
-/* .radio[type="radio"]{
-    display: none;
-}  */
-
-/* .ball::before{
-    display: inline-flex;
-    position: absolute;
-    border: 2px solid white;
-    border-radius: 50%;
-    content: "";
-    width: 15px;
-    height: 15px;
-    position: relative;
-    top: -10px;
-}  */
 
 #id_operation {
     padding: 0;
@@ -268,49 +253,15 @@ input::placeholder {
 
 
 .games_flex {
-
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 100px;
 }
 
-/* .games_image{
-    width: 600px;
-    height: 600px;
-    background-image: url(undraw_studying_s3l7.svg) ;
-    background-image: url(410px-Red_Silhouette_-_Brain.svg.png) ;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 600px 600px;
-    background-attachment: local;
-
-}  */
-
 
 .games_title {
     font-size: 50px;
-}
-
-
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(255, 166, 0);
-    color: white;
-    text-align: center;
-}
-
-
-.table_flex {
-    width: 1000px;
-    background-color: #16b8f3;
-    border-radius: 5px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-    margin: 18px;
-    padding: 20px;
 }
 
 
@@ -327,11 +278,10 @@ input::placeholder {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     margin: 40px 18px 18px 18px;
     padding: 20px;
-
 }
 
 .details_container_small {
-    width: 1200px;
+    width: auto;
 }
 
 .title {
@@ -412,4 +362,22 @@ td:last-child {
 
 .distance {
     margin-top: 30px;
+}
+
+
+.table_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table_container {
+    width: auto;
+    background-color: #16B8F3;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    margin: 40px 18px 18px 18px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
 }

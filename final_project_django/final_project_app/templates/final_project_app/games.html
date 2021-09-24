@@ -1,27 +1,29 @@
 {% extends 'final_project_app/base.html' %}
 {% block title %}Games{% endblock %}
 {% block content %}
-    <div class="black">
-        <table>
-            <th>Games</th>
-            <tr>
-                <td>Name</td>
-                <td>Date</td>
-                <td>Number of answers</td>
-            </tr>
-            {% for game in games %}
+    <div class="table_flex">
+        <div class="table_container">
+            <table>
+                <th>Games</th>
                 <tr>
-                    <td>
-                        <a class="" href="{% url 'game_details' game_id=game.id %}">{{ game.name }}</a>
-                    </td>
-                    <td>
-                        {{ game.date }}
-                    </td>
-                    <td>
-                        {{ game.gameanswers_set.all.count }}
-                    </td>
+                    <td>Name</td>
+                    <td>Date</td>
+                    <td>Number of answers</td>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for game in games %}
+                    <tr>
+                        <td>
+                            <a class="" href="{% url 'game_details' game_id=game.id %}">{{ game.name }}</a>
+                        </td>
+                        <td>
+                            {{ game.date }}
+                        </td>
+                        <td>
+                            {{ game.gameanswers_set.all.count }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 {% endblock %}
