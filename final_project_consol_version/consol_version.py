@@ -63,7 +63,7 @@ def validate_range(x, default_value):
 
 def precision(p, r):
     try:
-        return round(p / r * 100, 2)
+        return round(r / p * 100, 2)
     except ZeroDivisionError:
         return 0.0
 
